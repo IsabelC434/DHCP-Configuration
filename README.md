@@ -79,7 +79,7 @@
 
 
 ---
- ## 🔹Troubleshooting and Interpretation
+## 🔹Troubleshooting and Interpretation
 #### At first, the expectation was that DHCP behavior would be controlled by the Windows Server instance after role installation. However, command line analysis showed that the client lease source was Azure managed DHCP instead. 
 #### Rather than treating this as a failed lab, the result was analyzed as an environmental difference between cloud hosted virtual networking and traditional server managed DHCP deployments.
 #### This required adapting the tourbleshooting approach to focus on:
@@ -92,6 +92,26 @@
 <img src="images/AzureIP2.png" width="600"/> 
 
 
+---
+
+## 🔹Expected DHCP Behavior (On Premises Environment)
+#### In a traditional on-premises environment, the DHCP server configured on Windows Server (DC-1) would be responsible for assigning IP addresses and network configurations to client machines.
+#### Under normal Conditions, the following behavior would be expected:
+  - The client would request an IP address from the DHCP server during a network initialization
+  - The DHCP server (DC-1) would respond with an available IP address from the configured scope
+  - The client would receive:
+    - An IPv4 address within the defined scope range
+    - A subnet mask
+    - A default gateway
+    - A DNS server
+    
+  - The DHCP server field in 'ipconfig /all' would display the IP address of DC-1 rather than an external service
+#### Additionally, server side control would allow for:
+  - Starting or stopping the DHCP service to directly impact client IP assignment
+  - Managing IP address pools and lease durations through the DHCP console
+  - Observing active leases assigned to client machines
+#### In this project, these expected behaviors were not observed due to Azure managing DHCP at the virtual network level. However, understanding the expected on premises functionality is critical for recognizing how DHCP operates in different environments. 
+  
 ---
 
 ## 🔹Key Observations
