@@ -33,7 +33,10 @@
 #### in enterprise environments, DHCP is used to automatically assigning IP addresses and other network settings to client systems. When DHCP related issues occur, users may lose connectivity, making IP configuration analysis a common troubleshooting responsibility in Help Desk and support roles.  This project highlights how cloud managed networking services can differ from traditional on premises configurations, requiring adaptive troubleshooting approaches. 
 
 - ## DHCP Role Installation on DC-1
-#### The DHCP Server role was installed on the Windows Server machine through Server Manager to examine DHCP behavior within the environment and compare expected server-side behavior against actual cloud-hosted results.
+#### The DHCP Server role was installed on the Windows Server machine through Server Manager to examine DHCP behavior within the environment and compare expected server side behavior against actual cloud hosted results.
+
+<img src="images/DHCP-installed.png" width="600"/>
+<img src="images/DHCPservercreated.png" width="600"/>
 
 #### Although the role was added successfully, later testing showed that Azure continued managing DHCP assignment at the virtual network level.
 
@@ -54,7 +57,11 @@
 - ## Azure DHCP Behavior Obersvation
 #### Analysis of the DHCP server address revealed that the client was receiving its lease from 168.63.129.16, which is Azure's internal DHCP service. 
 #### This was an important finding because it explains why the client continued receiving IP configuration even after local DHCP role installation on DC-1. In Azure, DHCP is abstracted and managed by the platform itself, which changes the expected outcome compared to a traditional on premises Windows Server DHCP deployment. 
-#### This observation demonstrates the importance of validationg actual network behavior rather than assuming infrastructure roles are functioning as they would in a different environment. 
+#### This observation demonstrates the importance of validationg actual network behavior rather than assuming infrastructure roles are functioning as they would in a different environment.
+
+<img src="images/AzureIP.png" width="600"/> 
+
+
 
 - ## Release and Renew Testing
 #### To validate lease behavior, the following command sequence was run on Client-1:
@@ -67,6 +74,8 @@
   - The default gateway remained consistent
   - Azure DHCP reassigned a valid network configuration to the client
 
+<img src="images/releaseandrenew.png" width="600"/>
+<img src="images/resultsofreleaseandrenew.png" width="600"/>
 
 
 ---
@@ -79,6 +88,8 @@
   - Understanding why the gateway and IP lease remained valid
   - Documenting the difference between expected and actual behavior in Azure
 #### this reflects a realistic troubleshooting process: verify assumptions, inspect evidence, and adjust conclusions based on the environment.
+
+<img src="images/AzureIP2.png" width="600"/> 
 
 
 ---
